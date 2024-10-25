@@ -1,0 +1,28 @@
+installation cmds,
+
+1. install git > sudo yum install git
+2. go to path cd ~/.ssh/ 
+3. generate keypair > ssh-keygen -t ed25519
+4. login to github portal and got ot setting > ssh keys > create new ssh key > paste id_rsa.pub key on there
+5. create a new repo 
+6.  copy ssh key from repo .its in code tab
+7. go to terminal on machine > git clone git@github.com:Vaidhiyanathangithub/ansiblecertlearn.git
+8. you can see repo name there as directory and go to that directory
+9. git config --global user.name "Vaidhiyanathangithub"
+10. git config --global user.email "vaidhiyanathangithub@gmail.com"
+
+check connection between machine and git repo >  ssh -T git@github.com and cat ~/.gitconfig 
+
+=====================
+
+once file is created ,then execute below cmd
+
+       git status
+  183  git add sample.txt 
+  184  git status
+  185  git commit -m "this is  testing fille"
+  186  git branch 
+  187  git push origin main
+
+
+
