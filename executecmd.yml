@@ -1,0 +1,18 @@
+---
+- name: Execute cmds
+  hosts: Devnode
+  become: yes
+  become_user: vaidhi
+  gather_facts: no
+  tasks:
+    - name: Login as vaidhi and Execute  cmds
+      command: whoami
+      register: output
+    
+    - name: display output
+      debug:
+        msg: "{{ output }}"
+    
+    
+
+          
