@@ -1,0 +1,13 @@
+---
+- name: Get input from user and print it
+  hosts: localhost
+  gather_facts: no
+  vars_prompt:
+    - name: "user_input"
+      prompt: "Please enter any message you'd like to display"
+      private: no  # Set to 'yes' if you want to hide the input (like a password)
+
+  tasks:
+    - name: Display the entered message
+      debug:
+        msg: "You entered: {{ user_input }}"
