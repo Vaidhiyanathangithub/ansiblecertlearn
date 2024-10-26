@@ -1,0 +1,23 @@
+---
+  - name: update password
+    hosts: Devnode
+    become: yes
+    gather_facts: yes
+    tasks:
+      - name: check connectivity 
+        tags: ping
+        ping:
+
+      - name: user's password updation
+        tags: passwordupdation
+        user:
+          name: vaidhi
+          password: "{{ 'Jothi@0212' | password_hash('sha512') }}"  
+          update_password: always
+        register: output
+
+      - name: print status of updation
+        debug:
+          msg: Password updation is completed successfully "{{output}}"
+
+    
