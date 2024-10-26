@@ -1,0 +1,67 @@
+# used to modify the user's password
+---
+  - name: Ping Linux hosts
+    hosts: Devnode
+    become: false
+    gather_facts: true
+    tasks:
+      - name: check user existence
+        command: id ansible
+        ignore_errors: true
+        register: id
+
+      - name: displaying status of id
+        debug:
+          msg: "{{ id }}" 
+      
+      - name: delete user which is present
+        user:
+          name: ansible
+          state: absent
+        register: delete
+        when: id.rc == 0
+
+
+       
+      - name: create user
+        user:
+          name: ansible
+          state: present
+          password: "{{'ansible' | password_hash('sha512') }}"
+          shell: /bin/bash
+          #group: users
+          #home: /home/ansible
+        register: create
+
+      - name: displaying status of creation
+        debug:
+          msg: "{{ create }}" 
+
+      - name: Wait for 5 seconds
+        pause:
+         seconds: 1
+        register: Wait
+
+      - name: displaying status of wait
+        debug:
+          msg: "{{ Wait }}" 
+
+      - name: Running cmd as ansible
+        command: 'whoami'
+        #become_user: ansible
+         #become: yes
+        register: whoami
+      
+      - name: displaying status of whoami
+        debug:
+            msg: "{{ whoami }}"
+
+      - name: delete user
+        user:
+          name: ansible
+          state: absent
+        register: delete
+      
+      - name: displaying status of deletion
+        debug:
+            msg: "{{ delete }}" 
