@@ -1,0 +1,7 @@
+---
+- name: Ping Linux hosts
+  hosts: Devnode
+  become: false
+  gather_facts: true
+  roles: 
+        - ping
