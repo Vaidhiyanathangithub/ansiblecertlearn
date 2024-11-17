@@ -1,0 +1,27 @@
+---
+  - name:  Install services
+    hosts: Devnode
+    gather_facts: yes
+    become: yes
+    roles:
+      - ping
+    tasks:
+      - name: Install httpd
+        ansible.builtin.yum:
+           name: httpd
+           state: installed
+        register: op
+
+      - name: Wait for 5 seconds
+        ansible.builtin.pause:
+          seconds: 5
+
+      - name: starting httpd
+        ansible.builtin.service:
+           name: httpd
+           state: started
+           enabled: yes
+      
+      - name: displaying output  
+        debug:
+           msg: "{{ op }}"
