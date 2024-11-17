@@ -1,0 +1,23 @@
+---
+- name: variable declaration
+  hosts: Devnode
+  gather_facts: yes  # This gathers general facts, including services
+  become: yes
+  become_method: ansible.builtin.sudo
+
+  vars:
+    variable_name:
+      - name: httpd
+      - name: sshd
+
+  tasks:
+    - name: calling variables
+      tags: vars
+      ansible.builtin.service:
+        name: "{{ item.name }}"
+        state: started
+      register: result
+      loop: "{{ variable_name }}"
+      
+
+ 
