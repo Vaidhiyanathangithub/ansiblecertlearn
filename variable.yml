@@ -1,8 +1,8 @@
 ---
 - name: variable declaration
   hosts: Devnode
-  gather_facts: yes  # This gathers general facts, including services
-  become: yes
+  gather_facts: false  # This gathers general facts, including services
+  become: false
   become_method: ansible.builtin.sudo
 
   vars:

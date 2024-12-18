@@ -1,15 +1,38 @@
 ---
-  - name: File Management
+  - name: file mangement 
     hosts: Devnode
-    become: yes
-    gather_facts: yes
+    become: true
+    gather_facts: true
     tasks:
       - name: create directory
-        command: mkdir directory 
-        args:
-         chdir: /home/vaidhi/Documents
-        register: output
+        tags: directory
+        ansible.builtin.file:
+           path: /tmp/tempdir
+           state: directory
 
-      - name: display output
-        debug:
-          msg: "{{ output }}"
+      - name: create file
+        tags: file
+        ansible.builtin.file:
+           path: /tmp/tempdir/tempfile
+           state: touch
+           owner: vaidhi
+           group: vaidhi
+           mode: 0644
+      
+      - name: get status of file
+        tags: status
+        ansible.builtin.stat:
+           path: /tmp/tempdir/tempfile
+        register: op
+      
+      - name: diplay new file output
+        ansible.builtin.debug:
+           msg: "{{ op }}"
+
+      - name: add content in file
+        tags: add_lines
+        ansible.builtin.blockinfile:
+           path: /tmp/tempdir/tempfile
+           block: |
+              this is temporary file
+            

@@ -3,9 +3,14 @@
     hosts: windows
     gather_facts: false
     ignore_errors: true
+    become: false
     tasks:
      - name: Ping Windows host
        win_ping:
-
+       register: output
+      
+     - name : display output
+       debug:
+          msg: "{{ output }}"
       
           

@@ -1,15 +1,16 @@
 ---
 - name: Ping Linux hosts
   hosts: Devnode
-  become: false
-  gather_facts: true
+  become: true
+  become_user: root
+  gather_facts: yes
   tasks:
     - name: Ping
       ping:
       register: op
-    - name: displaying result
+    - name: Extracts the ping key from the registered output variable
       debug:
-        msg: "{{ op }}"
+        msg: "{{ op.ping }}"
     - name: hostname of manged node
       debug:
         msg: "{{ ansible_hostname }}"
