@@ -1,0 +1,19 @@
+---
+- name: Example Playbook
+  hosts: localhost
+  gather_facts: no
+  vars_prompt:
+    - name: "user_input"
+      prompt: "Enetr the service name:"
+      private: no  # Set to 'yes' if you want to hide the input (like a password)
+  tasks:
+    - name: check service status
+      ansible.builtin.service:
+          name: "{{ user_input  }}"
+          state: started
+      register: output
+
+
+    - name: Display the service name
+      debug:
+        msg: "You entered the service name: {{ output }}"

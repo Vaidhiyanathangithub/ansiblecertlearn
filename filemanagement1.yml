@@ -1,0 +1,15 @@
+---
+  - name: File Management
+    hosts: Devnode
+    become: yes
+    gather_facts: yes
+    tasks:
+      - name: create directory
+        command: mkdir directory 
+        args:
+         chdir: /home/vaidhi/Documents
+        register: output
+
+      - name: display output
+        debug:
+          msg: "{{ output }}"
