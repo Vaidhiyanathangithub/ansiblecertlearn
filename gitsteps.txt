@@ -1,3 +1,5 @@
+we have to run below cmds as root.
+
 installation cmds,
 
 1. install git > sudo yum install git
